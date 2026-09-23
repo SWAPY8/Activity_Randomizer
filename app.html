@@ -1,0 +1,3038 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>English Activity Randomizer</title>
+
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+
+    --bg: #070a12;
+
+    --card: rgba(17, 23, 38, 0.86);
+
+    --border: rgba(255,255,255,0.09);
+
+    --text: #f5f7ff;
+
+    --muted: #98a4bb;
+
+    --blue: #5c8dff;
+
+    --purple: #9b6cff;
+
+    --green: #35d49a;
+
+    --orange: #ff9d5c;
+
+    --red: #ff5f6d;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: var(--text);
+
+    background:
+
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(92,141,255,0.18),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(155,108,255,0.16),
+            transparent 26%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(53,212,154,0.08),
+            transparent 30%
+        ),
+
+        var(--bg);
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   BACKGROUND ORBS
+========================================================= */
+
+.background {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -1;
+
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+
+.orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(90px);
+
+    opacity: 0.12;
+
+    animation:
+        floating 12s
+        infinite
+        alternate
+        ease-in-out;
+}
+
+
+.orb.one {
+
+    width: 350px;
+
+    height: 350px;
+
+    background: #4f8cff;
+
+    top: -120px;
+
+    left: -100px;
+}
+
+
+.orb.two {
+
+    width: 300px;
+
+    height: 300px;
+
+    background: #9b6cff;
+
+    right: -100px;
+
+    top: 20%;
+
+    animation-delay: -4s;
+}
+
+
+.orb.three {
+
+    width: 300px;
+
+    height: 300px;
+
+    background: #35d49a;
+
+    bottom: -120px;
+
+    left: 35%;
+
+    animation-delay: -8s;
+}
+
+
+@keyframes floating {
+
+    from {
+
+        transform:
+            translate(0,0)
+            scale(1);
+    }
+
+    to {
+
+        transform:
+            translate(70px,50px)
+            scale(1.15);
+    }
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container {
+
+    width:
+        min(
+            1200px,
+            92%
+        );
+
+    margin: auto;
+
+    padding:
+        40px
+        0
+        70px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+
+.badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        8px
+        16px;
+
+    border-radius: 50px;
+
+    background:
+        rgba(92,141,255,0.08);
+
+    border:
+        1px solid
+        rgba(92,141,255,0.22);
+
+    color: #aac5ff;
+
+    font-size: 12px;
+
+    letter-spacing: 0.5px;
+
+    margin-bottom: 18px;
+}
+
+
+.header h1 {
+
+    font-size:
+        clamp(
+            2.2rem,
+            6vw,
+            4rem
+        );
+
+    line-height: 1;
+
+    letter-spacing: -2.5px;
+
+    margin-bottom: 16px;
+}
+
+
+.gradient {
+
+    background:
+        linear-gradient(
+            90deg,
+            #6c9fff,
+            #ae84ff,
+            #55dfb0
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+}
+
+
+.header p {
+
+    max-width: 700px;
+
+    margin: auto;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   MAIN APP
+========================================================= */
+
+.app {
+
+    background: var(--card);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 30px;
+
+    padding: 28px;
+
+    backdrop-filter:
+        blur(25px);
+
+    box-shadow:
+
+        0 30px 100px
+        rgba(0,0,0,0.4),
+
+        inset 0 1px
+        rgba(255,255,255,0.04);
+}
+
+
+/* =========================================================
+   ATTENDANCE
+========================================================= */
+
+.attendance {
+
+    padding: 22px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,0.025);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.07);
+
+    margin-bottom: 25px;
+}
+
+
+.attendance-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+
+.attendance-title h2 {
+
+    font-size: 18px;
+
+    margin-bottom: 5px;
+}
+
+
+.attendance-title p {
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+.attendance-actions {
+
+    display: flex;
+
+    gap: 8px;
+}
+
+
+.small-btn {
+
+    padding:
+        8px
+        12px;
+
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+    color: #aeb8ca;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    transition: 0.2s;
+}
+
+
+.small-btn:hover {
+
+    background:
+        rgba(255,255,255,0.09);
+
+    color: white;
+}
+
+
+.student-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            1fr
+        );
+
+    gap: 9px;
+}
+
+
+.student-check {
+
+    position: relative;
+
+    cursor: pointer;
+}
+
+
+.student-check input {
+
+    display: none;
+}
+
+
+.student-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        11px
+        12px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,0.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.06);
+
+    color: #9faabe;
+
+    font-size: 12px;
+
+    transition:
+        0.2s;
+}
+
+
+.checkbox {
+
+    width: 16px;
+
+    height: 16px;
+
+    border-radius: 5px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.2);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 10px;
+}
+
+
+.student-check input:checked
++ .student-card {
+
+    background:
+        rgba(53,212,154,0.08);
+
+    border-color:
+        rgba(53,212,154,0.35);
+
+    color: #72dfb7;
+}
+
+
+.student-check input:checked
++ .student-card
+.checkbox {
+
+    background:
+        var(--green);
+
+    border-color:
+        var(--green);
+
+    color:
+        #06120d;
+}
+
+
+.attendance-count {
+
+    margin-top: 14px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+.attendance-count strong {
+
+    color: #68dfb5;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.controls {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 17px;
+
+    margin-bottom: 25px;
+}
+
+
+.main-btn {
+
+    min-height: 78px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s,
+        box-shadow 0.25s;
+}
+
+
+.main-btn:hover {
+
+    transform:
+        translateY(-4px);
+}
+
+
+.main-btn:active {
+
+    transform:
+        scale(0.97);
+}
+
+
+.activity-btn {
+
+    background:
+        linear-gradient(
+            135deg,
+            #4b82ff,
+            #7957ff
+        );
+
+    box-shadow:
+        0 15px 40px
+        rgba(79,140,255,0.2);
+}
+
+
+.participant-btn {
+
+    background:
+        linear-gradient(
+            135deg,
+            #18b982,
+            #249ec9
+        );
+
+    box-shadow:
+        0 15px 40px
+        rgba(53,212,154,0.18);
+}
+
+
+.icon {
+
+    font-size: 25px;
+
+    margin-right: 8px;
+}
+
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+.result-box {
+
+    min-height: 220px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(255,255,255,0.02);
+
+    border:
+        1px dashed
+        rgba(255,255,255,0.12);
+
+    margin-bottom: 25px;
+}
+
+
+.placeholder {
+
+    color: var(--muted);
+}
+
+
+.placeholder-icon {
+
+    display: block;
+
+    font-size: 52px;
+
+    margin-bottom: 15px;
+
+    animation:
+        pulse
+        2s
+        infinite
+        ease-in-out;
+}
+
+
+@keyframes pulse {
+
+    0%,100% {
+
+        transform:
+            scale(1);
+
+        opacity:
+            0.7;
+    }
+
+    50% {
+
+        transform:
+            scale(1.12);
+
+        opacity:
+            1;
+    }
+}
+
+
+.result {
+
+    width: 100%;
+
+    animation:
+        resultIn
+        0.5s
+        ease;
+}
+
+
+@keyframes resultIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(0.85)
+            translateY(15px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+
+.result-label {
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-bottom: 10px;
+}
+
+
+.result h2 {
+
+    font-size:
+        clamp(
+            1.7rem,
+            4vw,
+            2.8rem
+        );
+
+    margin-bottom: 10px;
+}
+
+
+.result-subtitle {
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+.activity-result {
+
+    color: #9bbaff;
+}
+
+
+.participant-result {
+
+    color: #68e4b6;
+}
+
+
+.rolling {
+
+    animation:
+        shake
+        0.09s
+        infinite
+        alternate;
+}
+
+
+@keyframes shake {
+
+    from {
+
+        transform:
+            translateY(-4px);
+
+        opacity:
+            0.55;
+    }
+
+    to {
+
+        transform:
+            translateY(4px);
+
+        opacity:
+            1;
+    }
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+.details {
+
+    display: none;
+
+    animation:
+        slideUp
+        0.5s
+        ease;
+}
+
+
+.details.show {
+
+    display: block;
+}
+
+
+@keyframes slideUp {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+.activity-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+
+.activity-heading h2 {
+
+    font-size: 25px;
+}
+
+
+.activity-type {
+
+    padding:
+        7px
+        13px;
+
+    border-radius: 50px;
+
+    background:
+        rgba(92,141,255,0.1);
+
+    border:
+        1px solid
+        rgba(92,141,255,0.18);
+
+    color: #9fbdff;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            1fr
+        );
+
+    gap: 14px;
+
+    margin-bottom: 22px;
+}
+
+
+.info {
+
+    padding: 17px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,0.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.06);
+}
+
+
+.info-label {
+
+    display: block;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    color: #8290a8;
+
+    margin-bottom: 8px;
+}
+
+
+.info-value {
+
+    font-size: 13px;
+
+    color: #dce2ed;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.section {
+
+    margin-top: 22px;
+}
+
+
+.section h3 {
+
+    font-size: 15px;
+
+    margin-bottom: 10px;
+}
+
+
+.section p {
+
+    color: #c1c9d9;
+
+    font-size: 14px;
+
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   STEPS
+========================================================= */
+
+.steps {
+
+    list-style: none;
+
+    counter-reset: steps;
+}
+
+
+.steps li {
+
+    counter-increment: steps;
+
+    position: relative;
+
+    padding:
+        9px
+        10px
+        9px
+        42px;
+
+    color: #c1c9d9;
+
+    font-size: 14px;
+
+    line-height: 1.55;
+}
+
+
+.steps li::before {
+
+    content:
+        counter(steps);
+
+    position: absolute;
+
+    left: 0;
+
+    top: 7px;
+
+    width: 28px;
+
+    height: 28px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(92,141,255,0.11);
+
+    color:
+        #91b5ff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   EXAMPLE
+========================================================= */
+
+.example {
+
+    padding: 18px;
+
+    border-left:
+        3px solid
+        #8068ff;
+
+    border-radius:
+        0
+        12px
+        12px
+        0;
+
+    background:
+        rgba(128,104,255,0.07);
+
+    color: #d0d7e8;
+
+    font-size: 14px;
+
+    line-height: 1.75;
+}
+
+
+.example strong {
+
+    color: #ad9bff;
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-section {
+
+    margin-top: 28px;
+
+    padding-top: 22px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,0.07);
+}
+
+
+.progress-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-bottom: 8px;
+}
+
+
+.progress {
+
+    width: 100%;
+
+    height: 7px;
+
+    background:
+        rgba(255,255,255,0.07);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+.progress-bar {
+
+    height: 100%;
+
+    width: 0%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #4f8cff,
+            #35d49a
+        );
+
+    transition:
+        width 0.5s ease;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+.reset-area {
+
+    text-align: center;
+
+    margin-top: 24px;
+}
+
+
+.reset-btn {
+
+    padding:
+        10px
+        18px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.045);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+    color: #8c98ad;
+
+    cursor: pointer;
+
+    transition:
+        0.2s;
+}
+
+
+.reset-btn:hover {
+
+    background:
+        rgba(255,255,255,0.09);
+
+    color: white;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    text-align: center;
+
+    color: #626e84;
+
+    font-size: 12px;
+
+    margin-top: 25px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width: 800px) {
+
+    .student-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                1fr
+            );
+    }
+
+}
+
+
+@media(max-width: 650px) {
+
+    .container {
+
+        padding-top: 25px;
+    }
+
+
+    .app {
+
+        padding: 18px;
+
+        border-radius: 22px;
+    }
+
+
+    .controls {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .info-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .attendance-header {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+    }
+
+
+    .activity-heading {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+    }
+
+
+    .student-grid {
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     BACKGROUND
+========================================================= -->
+
+<div class="background">
+
+    <div class="orb one"></div>
+
+    <div class="orb two"></div>
+
+    <div class="orb three"></div>
+
+</div>
+
+
+<div class="container">
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header">
+
+    <div class="badge">
+
+        ✦ SPOKEN ENGLISH • CLASSROOM TOOL
+
+    </div>
+
+
+    <h1>
+
+        English
+
+        <span class="gradient">
+
+            Activity Randomizer
+
+        </span>
+
+    </h1>
+
+
+    <p>
+
+        Randomly select activities and participants,
+        manage daily attendance, and make spoken-English
+        practice more interactive.
+
+    </p>
+
+</header>
+
+
+<!-- =========================================================
+     APP
+========================================================= -->
+
+<main class="app">
+
+
+<!-- =========================================================
+     ATTENDANCE
+========================================================= -->
+
+<section class="attendance">
+
+
+    <div class="attendance-header">
+
+
+        <div class="attendance-title">
+
+            <h2>
+                👥 Today's Attendance
+            </h2>
+
+            <p>
+                Tick the students who are present today.
+            </p>
+
+        </div>
+
+
+        <div class="attendance-actions">
+
+            <button
+                class="small-btn"
+                onclick="selectAllStudents()"
+            >
+                ✓ Select All
+            </button>
+
+
+            <button
+                class="small-btn"
+                onclick="clearAttendance()"
+            >
+                Clear
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- STUDENT CHECKBOXES -->
+
+    <div
+        class="student-grid"
+        id="studentGrid"
+    ></div>
+
+
+    <div class="attendance-count">
+
+        Present:
+
+        <strong id="attendanceCount">
+            17 / 17
+        </strong>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MAIN BUTTONS
+========================================================= -->
+
+<div class="controls">
+
+
+    <button
+        class="main-btn activity-btn"
+        onclick="randomActivity()"
+    >
+
+        <span class="icon">
+            🎯
+        </span>
+
+        Random Activity
+
+    </button>
+
+
+    <button
+        class="main-btn participant-btn"
+        onclick="randomParticipant()"
+    >
+
+        <span class="icon">
+            👤
+        </span>
+
+        Random Participant
+
+    </button>
+
+
+</div>
+
+
+<!-- =========================================================
+     RESULT
+========================================================= -->
+
+<div
+    class="result-box"
+    id="resultBox"
+>
+
+
+    <div class="placeholder">
+
+        <span class="placeholder-icon">
+            🎲
+        </span>
+
+
+        <h3>
+            Ready to begin?
+        </h3>
+
+
+        <p>
+            First select today's activity.
+        </p>
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================================================
+     ACTIVITY DETAILS
+========================================================= -->
+
+<section
+    class="details"
+    id="details"
+>
+
+
+    <div class="activity-heading">
+
+
+        <h2 id="activityTitle"></h2>
+
+
+        <span
+            class="activity-type"
+            id="activityType"
+        ></span>
+
+
+    </div>
+
+
+    <div class="info-grid">
+
+
+        <div class="info">
+
+            <span class="info-label">
+                Objective
+            </span>
+
+
+            <span
+                class="info-value"
+                id="objective"
+            ></span>
+
+        </div>
+
+
+        <div class="info">
+
+            <span class="info-label">
+                Speaking Time
+            </span>
+
+
+            <span
+                class="info-value"
+                id="speakingTime"
+            ></span>
+
+        </div>
+
+
+        <div class="info">
+
+            <span class="info-label">
+                Preparation
+            </span>
+
+
+            <span
+                class="info-value"
+                id="preparation"
+            ></span>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- STEPS -->
+
+    <div class="section">
+
+
+        <h3>
+            📋 How to Perform
+        </h3>
+
+
+        <ol
+            class="steps"
+            id="steps"
+        ></ol>
+
+
+    </div>
+
+
+    <!-- EXAMPLE -->
+
+    <div class="section">
+
+
+        <h3>
+            💡 Example
+        </h3>
+
+
+        <div
+            class="example"
+            id="example"
+        ></div>
+
+
+    </div>
+
+
+    <!-- RULE -->
+
+    <div class="section">
+
+
+        <h3>
+            ⚠️ Important Rule
+        </h3>
+
+
+        <p
+            id="rule"
+        ></p>
+
+
+    </div>
+
+
+    <!-- PROGRESS -->
+
+    <div class="progress-section">
+
+
+        <div class="progress-header">
+
+
+            <span>
+                Present Students Selected
+            </span>
+
+
+            <span
+                id="progressText"
+            >
+                0 / 17
+            </span>
+
+
+        </div>
+
+
+        <div class="progress">
+
+
+            <div
+                class="progress-bar"
+                id="progressBar"
+            ></div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- RESET -->
+
+<div class="reset-area">
+
+
+    <button
+        class="reset-btn"
+        onclick="resetSession()"
+    >
+
+        ↻ Reset Activity Session
+
+    </button>
+
+
+</div>
+
+
+</main>
+
+
+<footer>
+
+    Speak • Listen • Think • Improve
+
+</footer>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   MASTER STUDENT LIST
+========================================================= */
+
+const students = [
+
+    "Swapnil",
+    "Prathamesh",
+    "Omkar",
+    "Gagan",
+    "Sarika",
+    "Sarthak",
+    "Deepali",
+    "Sahil",
+    "Neha",
+    "Ayush",
+    "Divya",
+    "Shubhangi",
+    "Swetali",
+    "Saurabh",
+    "Satej",
+    "Gayatri",
+    "Prajwal"
+
+];
+
+
+/* =========================================================
+   10 ACTIVITIES
+========================================================= */
+
+const activities = [
+
+    {
+
+        name:
+            "📰 Newspaper Reading & Explanation",
+
+        type:
+            "Reading + Speaking",
+
+        objective:
+            "Improve reading comprehension, vocabulary, pronunciation, summarization and opinion-based speaking.",
+
+        time:
+            "2–3 minutes per student",
+
+        preparation:
+            "5–7 minutes",
+
+        steps: [
+
+            "Select a recent newspaper article or news report.",
+
+            "Read the article carefully and understand its main idea.",
+
+            "Identify 3 useful or unfamiliar vocabulary words.",
+
+            "Prepare a short explanation in your own English.",
+
+            "Explain what happened, why it happened and what the possible impact is.",
+
+            "Give your personal opinion.",
+
+            "Answer one question from another student."
+
+        ],
+
+        example:
+
+            "<strong>Example:</strong> AI in Healthcare<br><br>" +
+
+            "Explain what happened, what technology is involved, " +
+            "why it matters and what impact it could have on doctors and patients.<br><br>" +
+
+            "<strong>Vocabulary:</strong> Significant = important or meaningful.",
+
+        rule:
+            "Do not simply read the article aloud. Understand it first and explain it in your own English."
+
+    },
+
+
+    {
+
+        name:
+            "🧠 Explain It Like I'm Five",
+
+        type:
+            "Concept Explanation",
+
+        objective:
+            "Learn to explain complicated ideas clearly using simple English.",
+
+        time:
+            "2–3 minutes per student",
+
+        preparation:
+            "3–5 minutes",
+
+        steps: [
+
+            "Take the topic assigned to you.",
+
+            "Imagine that the listener knows absolutely nothing about it.",
+
+            "Start with the basic idea.",
+
+            "Avoid technical jargon unless you explain it.",
+
+            "Use examples or everyday comparisons.",
+
+            "Finish with the main takeaway.",
+
+            "Answer one Why or How question."
+
+        ],
+
+        example:
+
+            "<strong>Topic:</strong> How does GPS know where you are?<br><br>" +
+
+            "Explain how satellites help your phone determine its location " +
+            "without using complicated technical language.",
+
+        rule:
+            "Your goal is not to sound intelligent. Your goal is to make the listener understand."
+
+    },
+
+
+    {
+
+        name:
+            "🎤 60-Second Topic Challenge",
+
+        type:
+            "Spontaneous Speaking",
+
+        objective:
+            "Improve fluency, confidence and the ability to think directly in English.",
+
+        time:
+            "60 seconds",
+
+        preparation:
+            "30–60 seconds",
+
+        steps: [
+
+            "Receive a random topic.",
+
+            "Think about two or three points.",
+
+            "Speak continuously for 60 seconds.",
+
+            "Do not stop if you forget a word.",
+
+            "Explain the idea using different words.",
+
+            "Answer a follow-up question."
+
+        ],
+
+        example:
+
+            "<strong>Topic:</strong> Skills vs Degree<br><br>" +
+
+            "Explain which is more important in today's job market " +
+            "and give at least two reasons.",
+
+        rule:
+            "Do not memorize a speech. Speak naturally."
+
+    },
+
+
+    {
+
+        name:
+            "⚔️ Mini Debate",
+
+        type:
+            "Discussion + Argument",
+
+        objective:
+            "Improve reasoning, listening, vocabulary and response skills.",
+
+        time:
+            "3–5 minutes per side",
+
+        preparation:
+            "3–5 minutes",
+
+        steps: [
+
+            "Divide students into two sides.",
+
+            "Give both sides a topic.",
+
+            "Prepare two or three arguments.",
+
+            "Present your arguments.",
+
+            "Listen carefully to the opposite side.",
+
+            "Respond to their argument.",
+
+            "Finish with a short rebuttal."
+
+        ],
+
+        example:
+
+            "<strong>Topic:</strong> Work From Home vs Work From Office<br><br>" +
+
+            "Use phrases such as: " +
+            "<strong>'I understand your point, however...'</strong>",
+
+        rule:
+            "Respond to the other person's actual argument instead of repeating your own."
+
+    },
+
+
+    {
+
+        name:
+            "🎭 Real-Life Role Play",
+
+        type:
+            "Practical Conversation",
+
+        objective:
+            "Practice natural English used in professional and everyday situations.",
+
+        time:
+            "3–5 minutes",
+
+        preparation:
+            "2–3 minutes",
+
+        steps: [
+
+            "Create pairs.",
+
+            "Assign roles.",
+
+            "Read the situation.",
+
+            "Prepare the main points.",
+
+            "Perform the conversation.",
+
+            "React naturally to your partner.",
+
+            "Switch roles if time allows."
+
+        ],
+
+        example:
+
+            "<strong>Situation:</strong> Customer Complaint<br><br>" +
+
+            "Student A = Angry customer<br>" +
+            "Student B = Customer support manager<br><br>" +
+
+            "The manager must handle the complaint professionally.",
+
+        rule:
+            "Do not read a memorized dialogue. React naturally."
+
+    },
+
+
+    {
+
+        name:
+            "🔤 Mystery Word Game",
+
+        type:
+            "Vocabulary",
+
+        objective:
+            "Improve vocabulary knowledge and the ability to explain words.",
+
+        time:
+            "1 minute per student",
+
+        preparation:
+            "30 seconds",
+
+        steps: [
+
+            "One student receives a secret word.",
+
+            "The student cannot say the word.",
+
+            "Explain its meaning using examples.",
+
+            "Other students try to guess.",
+
+            "Explain the exact meaning after it is guessed.",
+
+            "Give a synonym.",
+
+            "Use it in a sentence."
+
+        ],
+
+        example:
+
+            "<strong>Secret Word:</strong> Resilient<br><br>" +
+
+            "Explain: 'It describes someone who can recover after difficulties " +
+            "and does not easily give up.'<br><br>" +
+
+            "Sentence: <strong>Successful people need to be resilient.</strong>",
+
+        rule:
+            "Do not say the secret word or an obvious part of it."
+
+    },
+
+
+    {
+
+        name:
+            "🎯 One Person — One Word",
+
+        type:
+            "Vocabulary + Speaking",
+
+        objective:
+            "Learn to use new vocabulary naturally during spontaneous speaking.",
+
+        time:
+            "60–90 seconds",
+
+        preparation:
+            "30 seconds",
+
+        steps: [
+
+            "Receive one useful English word.",
+
+            "Understand the meaning.",
+
+            "Choose a topic where the word fits.",
+
+            "Speak for approximately one minute.",
+
+            "Use the word naturally.",
+
+            "Explain the word afterward if necessary."
+
+        ],
+
+        example:
+
+            "<strong>Word:</strong> Accountability<br><br>" +
+
+            "Topic: Workplace responsibility<br><br>" +
+
+            "'A good employee should take accountability for mistakes " +
+            "instead of blaming others.'",
+
+        rule:
+            "Use the word naturally. Do not force it into an unrelated sentence."
+
+    },
+
+
+    {
+
+        name:
+            "🎙️ Newsroom Activity",
+
+        type:
+            "Group Speaking",
+
+        objective:
+            "Improve teamwork, spontaneous speaking, questioning and professional communication.",
+
+        time:
+            "4–5 minutes per team",
+
+        preparation:
+            "5–7 minutes",
+
+        steps: [
+
+            "Create teams of four.",
+
+            "Give the team a news scenario.",
+
+            "Assign roles.",
+
+            "Anchor introduces the story.",
+
+            "Reporter explains what happened.",
+
+            "Expert gives analysis.",
+
+            "Affected person gives a personal perspective.",
+
+            "Audience asks questions."
+
+        ],
+
+        example:
+
+            "<strong>Scenario:</strong> A new AI system can perform several tasks " +
+            "normally done by entry-level employees.<br><br>" +
+
+            "<strong>Roles:</strong> Anchor, Reporter, AI Expert, Affected Employee.",
+
+        rule:
+            "Everyone must contribute. Do not allow one person to dominate."
+
+    },
+
+
+    {
+
+        name:
+            "💼 Mock Interview",
+
+        type:
+            "Professional English",
+
+        objective:
+            "Improve interview communication, confidence and professional vocabulary.",
+
+        time:
+            "5–7 minutes",
+
+        preparation:
+            "2 minutes",
+
+        steps: [
+
+            "Create interviewer and candidate pairs.",
+
+            "Ask common interview questions.",
+
+            "Ask at least one follow-up question.",
+
+            "Candidate should provide examples.",
+
+            "Avoid memorized answers.",
+
+            "Switch roles.",
+
+            "Give feedback."
+
+        ],
+
+        example:
+
+            "<strong>Questions:</strong><br><br>" +
+
+            "Tell me about yourself.<br>" +
+            "Why should we hire you?<br>" +
+            "What is your biggest weakness?<br>" +
+            "Tell me about a difficult situation.<br>" +
+            "Where do you see yourself in five years?",
+
+        rule:
+            "Answer naturally and use specific examples when possible."
+
+    },
+
+
+    {
+
+        name:
+            "📖 Story Chain",
+
+        type:
+            "Spontaneous Group Story",
+
+        objective:
+            "Improve listening, creativity, vocabulary and spontaneous sentence formation.",
+
+        time:
+            "30–45 seconds per student",
+
+        preparation:
+            "No preparation",
+
+        steps: [
+
+            "The first student receives a starting sentence.",
+
+            "The student continues the story.",
+
+            "The next student continues from where the previous person stopped.",
+
+            "Each student adds something new.",
+
+            "Students must listen carefully.",
+
+            "Optionally use one vocabulary word per student.",
+
+            "One student summarizes the final story."
+
+        ],
+
+        example:
+
+            "<strong>Starting sentence:</strong><br><br>" +
+
+            "'I received an email saying that I had been selected for a job " +
+            "I never applied for.'<br><br>" +
+
+            "Student 1 starts → Student 2 continues → Student 3 adds a problem → " +
+            "Student 4 finds a solution.",
+
+        rule:
+            "Your part must logically connect with what the previous student said."
+
+    }
+
+];
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentActivity = null;
+
+let selectedParticipants = [];
+
+let presentStudents = [...students];
+
+
+/* =========================================================
+   CREATE ATTENDANCE UI
+========================================================= */
+
+function createAttendanceList() {
+
+    const grid =
+        document.getElementById(
+            "studentGrid"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    students.forEach(
+        (student, index) => {
+
+            const label =
+                document.createElement(
+                    "label"
+                );
+
+
+            label.className =
+                "student-check";
+
+
+            label.innerHTML = `
+
+                <input
+                    type="checkbox"
+                    id="student-${index}"
+                    value="${student}"
+                    checked
+                    onchange="updateAttendance()"
+                >
+
+                <div class="student-card">
+
+                    <span class="checkbox">
+                        ✓
+                    </span>
+
+                    ${student}
+
+                </div>
+
+            `;
+
+
+            grid.appendChild(
+                label
+            );
+
+        }
+    );
+
+
+    updateAttendance();
+
+}
+
+
+/* =========================================================
+   UPDATE ATTENDANCE
+========================================================= */
+
+function updateAttendance() {
+
+    const checked =
+        document.querySelectorAll(
+            '#studentGrid input:checked'
+        );
+
+
+    presentStudents =
+        Array.from(
+            checked
+        ).map(
+            checkbox =>
+                checkbox.value
+        );
+
+
+    /*
+       If a student becomes absent,
+       remove them from the current
+       selected participant list.
+    */
+
+    selectedParticipants =
+        selectedParticipants.filter(
+            student =>
+                presentStudents.includes(
+                    student
+                )
+        );
+
+
+    document
+        .getElementById(
+            "attendanceCount"
+        )
+        .textContent =
+        `${presentStudents.length} / ${students.length}`;
+
+
+    updateProgress();
+
+    renderPresentStatus();
+
+}
+
+
+/* =========================================================
+   SELECT ALL
+========================================================= */
+
+function selectAllStudents() {
+
+    const checkboxes =
+        document.querySelectorAll(
+            '#studentGrid input'
+        );
+
+
+    checkboxes.forEach(
+        checkbox => {
+
+            checkbox.checked =
+                true;
+
+        }
+    );
+
+
+    updateAttendance();
+
+}
+
+
+/* =========================================================
+   CLEAR ATTENDANCE
+========================================================= */
+
+function clearAttendance() {
+
+    const checkboxes =
+        document.querySelectorAll(
+            '#studentGrid input'
+        );
+
+
+    checkboxes.forEach(
+        checkbox => {
+
+            checkbox.checked =
+                false;
+
+        }
+    );
+
+
+    updateAttendance();
+
+}
+
+
+/* =========================================================
+   RANDOM ACTIVITY
+========================================================= */
+
+function randomActivity() {
+
+    if (
+        presentStudents.length === 0
+    ) {
+
+        showMessage(
+            "⚠️ No students present",
+            "Please mark today's attendance first."
+        );
+
+        return;
+    }
+
+
+    showRolling(
+        "activity"
+    );
+
+
+    setTimeout(
+        () => {
+
+            const index =
+                Math.floor(
+                    Math.random() *
+                    activities.length
+                );
+
+
+            currentActivity =
+                activities[index];
+
+
+            /*
+                Starting a new activity
+                creates a fresh participant
+                selection pool.
+            */
+
+            selectedParticipants = [];
+
+
+            displayActivity();
+
+        },
+        1000
+    );
+
+}
+
+
+/* =========================================================
+   DISPLAY ACTIVITY
+========================================================= */
+
+function displayActivity() {
+
+    const activity =
+        currentActivity;
+
+
+    document
+        .getElementById(
+            "resultBox"
+        )
+        .innerHTML = `
+
+            <div class="result">
+
+                <div class="result-label">
+                    Selected Activity
+                </div>
+
+                <h2 class="activity-result">
+                    ${activity.name}
+                </h2>
+
+                <p class="result-subtitle">
+                    Press "Random Participant"
+                    to choose today's speaker.
+                </p>
+
+            </div>
+
+        `;
+
+
+    document
+        .getElementById(
+            "details"
+        )
+        .classList.add(
+            "show"
+        );
+
+
+    document
+        .getElementById(
+            "activityTitle"
+        )
+        .textContent =
+        activity.name;
+
+
+    document
+        .getElementById(
+            "activityType"
+        )
+        .textContent =
+        activity.type;
+
+
+    document
+        .getElementById(
+            "objective"
+        )
+        .textContent =
+        activity.objective;
+
+
+    document
+        .getElementById(
+            "speakingTime"
+        )
+        .textContent =
+        activity.time;
+
+
+    document
+        .getElementById(
+            "preparation"
+        )
+        .textContent =
+        activity.preparation;
+
+
+    document
+        .getElementById(
+            "example"
+        )
+        .innerHTML =
+        activity.example;
+
+
+    document
+        .getElementById(
+            "rule"
+        )
+        .textContent =
+        activity.rule;
+
+
+    const steps =
+        document.getElementById(
+            "steps"
+        );
+
+
+    steps.innerHTML = "";
+
+
+    activity.steps.forEach(
+        step => {
+
+            const li =
+                document.createElement(
+                    "li"
+                );
+
+
+            li.textContent =
+                step;
+
+
+            steps.appendChild(
+                li
+            );
+
+        }
+    );
+
+
+    renderPresentStatus();
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   RANDOM PARTICIPANT
+========================================================= */
+
+function randomParticipant() {
+
+    if (!currentActivity) {
+
+        showMessage(
+            "⚠️ Select an activity first",
+            "Press Random Activity before selecting a participant."
+        );
+
+        return;
+    }
+
+
+    if (
+        presentStudents.length === 0
+    ) {
+
+        showMessage(
+            "⚠️ No students present",
+            "Please mark today's attendance."
+        );
+
+        return;
+    }
+
+
+    /*
+       ONLY PRESENT + NOT ALREADY SELECTED
+       students can be selected.
+    */
+
+    const available =
+        presentStudents.filter(
+            student =>
+                !selectedParticipants.includes(
+                    student
+                )
+        );
+
+
+    if (
+        available.length === 0
+    ) {
+
+        showMessage(
+            "🎉 Everyone has participated!",
+            "All present students have already been selected for this activity."
+        );
+
+        return;
+    }
+
+
+    showRolling(
+        "participant"
+    );
+
+
+    setTimeout(
+        () => {
+
+            const index =
+                Math.floor(
+                    Math.random() *
+                    available.length
+                );
+
+
+            const selected =
+                available[index];
+
+
+            selectedParticipants.push(
+                selected
+            );
+
+
+            displayParticipant(
+                selected
+            );
+
+
+            renderPresentStatus();
+
+            updateProgress();
+
+        },
+        900
+    );
+
+}
+
+
+/* =========================================================
+   DISPLAY PARTICIPANT
+========================================================= */
+
+function displayParticipant(
+    student
+) {
+
+    document
+        .getElementById(
+            "resultBox"
+        )
+        .innerHTML = `
+
+            <div class="result">
+
+                <div class="result-label">
+                    Next Speaker
+                </div>
+
+                <h2 class="participant-result">
+                    👤 ${student}
+                </h2>
+
+                <p class="result-subtitle">
+                    ${currentActivity.name}
+                </p>
+
+            </div>
+
+        `;
+
+}
+
+
+/* =========================================================
+   ROLLING
+========================================================= */
+
+function showRolling(
+    type
+) {
+
+    const box =
+        document.getElementById(
+            "resultBox"
+        );
+
+
+    if (
+        type === "activity"
+    ) {
+
+        box.innerHTML = `
+
+            <div class="result rolling">
+
+                <div class="result-label">
+                    Selecting
+                </div>
+
+                <h2>
+                    🎯 Choosing Activity...
+                </h2>
+
+                <p class="result-subtitle">
+                    Randomizing all 10 activities
+                </p>
+
+            </div>
+
+        `;
+
+    } else {
+
+        box.innerHTML = `
+
+            <div class="result rolling">
+
+                <div class="result-label">
+                    Selecting
+                </div>
+
+                <h2>
+                    🎲 Choosing Participant...
+                </h2>
+
+                <p class="result-subtitle">
+                    Selecting from today's attendance
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+function showMessage(
+    title,
+    message
+) {
+
+    document
+        .getElementById(
+            "resultBox"
+        )
+        .innerHTML = `
+
+            <div class="result">
+
+                <div class="result-label">
+                    Notice
+                </div>
+
+                <h2>
+                    ${title}
+                </h2>
+
+                <p class="result-subtitle">
+                    ${message}
+                </p>
+
+            </div>
+
+        `;
+
+}
+
+
+/* =========================================================
+   SHOW PRESENT STUDENT STATUS
+========================================================= */
+
+function renderPresentStatus() {
+
+    /*
+        We intentionally do not create
+        another student list here because
+        attendance is already shown at top.
+
+        Instead, update the selected count
+        visually in the attendance cards.
+    */
+
+    const cards =
+        document.querySelectorAll(
+            ".student-check"
+        );
+
+
+    cards.forEach(
+        card => {
+
+            const input =
+                card.querySelector(
+                    "input"
+                );
+
+
+            const student =
+                input.value;
+
+
+            const cardVisual =
+                card.querySelector(
+                    ".student-card"
+                );
+
+
+            if (
+                selectedParticipants.includes(
+                    student
+                )
+            ) {
+
+                cardVisual.style.opacity =
+                    "0.45";
+
+                cardVisual.style.textDecoration =
+                    "line-through";
+
+            } else {
+
+                cardVisual.style.opacity =
+                    "";
+
+                cardVisual.style.textDecoration =
+                    "";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+    const text =
+        document.getElementById(
+            "progressText"
+        );
+
+
+    const bar =
+        document.getElementById(
+            "progressBar"
+        );
+
+
+    if (
+        !currentActivity
+    ) {
+
+        text.textContent =
+            `0 / ${presentStudents.length}`;
+
+        bar.style.width =
+            "0%";
+
+        return;
+    }
+
+
+    const total =
+        presentStudents.length;
+
+
+    const selected =
+        selectedParticipants.length;
+
+
+    const percentage =
+        total === 0
+            ? 0
+            : (
+                selected /
+                total
+            ) * 100;
+
+
+    text.textContent =
+        `${selected} / ${total}`;
+
+
+    bar.style.width =
+        `${percentage}%`;
+
+}
+
+
+/* =========================================================
+   RESET ACTIVITY SESSION
+========================================================= */
+
+function resetSession() {
+
+    selectedParticipants = [];
+
+
+    if (
+        currentActivity
+    ) {
+
+        document
+            .getElementById(
+                "resultBox"
+            )
+            .innerHTML = `
+
+                <div class="placeholder">
+
+                    <span class="placeholder-icon">
+                        🎲
+                    </span>
+
+                    <h3>
+                        Session Reset
+                    </h3>
+
+                    <p>
+                        Select a participant again.
+                    </p>
+
+                </div>
+
+            `;
+
+    }
+
+
+    renderPresentStatus();
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+createAttendanceList();
+
+</script>
+
+
+</body>
+
+</html>
